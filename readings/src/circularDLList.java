@@ -1,8 +1,9 @@
-public class SLList {
-    public static class IntNode {
-        public int item;
+public class circularDLList<abc> {
+    public class IntNode {
+        public abc item;
         public IntNode next;
-        public IntNode(int i, IntNode n) {
+        public IntNode prev;
+        public IntNode(abc i, IntNode n) {
             item = i;
             next = n;
         }
@@ -13,41 +14,47 @@ public class SLList {
     private IntNode first;
     private IntNode last;
     private int size;
-    public SLList(int x) {
+    public circularDLList(abc x) {
         first = new IntNode(x,null);
         last = first;
-        sentinel = new IntNode(0,first);//添加sentinel node
+        sentinel = new IntNode(x,first);//添加sentinel node
+        first.prev = sentinel;
+        last.next = sentinel;
         size = 1;//记录size
     }
 
-    //创建空SLList
-    public SLList() {
+    //创建空circularDLList
+    public circularDLList() {
         first = null;
-        sentinel = new IntNode(0,null);//添加sentinel node
+        sentinel = new IntNode(null,null);//添加sentinel node
         last = sentinel;//添加sentinel后修改
+        last.next = sentinel;
         size = 0;
     }
 
     //添加首个元素
-    public void addFirst(int x) {
+    public void addFirst(abc x) {
         first = new IntNode(x, first);
+        first.next.prev = first;
         size++;//记录size
     }
 
     //添加剩下的元素
-    public void addLast(int x) {
+    public void addLast(abc x) {
         // IntNode p = sentinel;
         // while (p.next != null) {
         //     p = p.next;
         // }
         // p.next = new IntNode(x,null);
         last.next = new IntNode(x,null);
+        last.next.prev = last;
         last = last.next;
+        last.next = sentinel;
         size++;
     }
 
     //返回第一个元素
-    public int getFirst() {
+    public abc getFirst() {
         //return first.item
         return sentinel.next.item;//添加sentinel后修改
     }
@@ -66,15 +73,15 @@ public class SLList {
         return size;
     }
     public static void main(String[] args) {
-        SLList list = new SLList(15);
-        SLList list2 = new SLList();
-        list2.addLast(10);
+        circularDLList<Integer> list = new circularDLList(15);
+        circularDLList<String> list2 = new circularDLList();
+        list2.addLast("hello");
         list.addFirst(1);
         list.addFirst(2);
         list.addFirst(3);
         list.addLast(16);
-        System.out.println(list2.getFirst());
-        System.out.println(list.first.next.next.next.next.item);
+        System.out.println(list2.sentinel.next.item);
+        System.out.println(list.first.next.next.next.next.next.next.item);
         System.out.println(list.size());
     }
 }
