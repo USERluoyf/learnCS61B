@@ -4,7 +4,7 @@ import java.util.List;
  * Created by hug on 2/4/2017. Methods are provided in the suggested order
  * that they should be completed.
  */
-public interface Deque61B<T> {
+public interface Deque61B<T> extends Iterable{
 
     /**
      * Add {@code x} to the front of the deque. Assumes {@code x} is never null.
@@ -19,6 +19,8 @@ public interface Deque61B<T> {
      * @param x item to add
      */
     void addLast(T x);
+
+
 
     /**
      * Returns a List copy of the deque. Does not alter the deque.
