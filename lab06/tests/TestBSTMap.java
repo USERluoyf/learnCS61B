@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Iterator;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -114,4 +116,46 @@ public class TestBSTMap {
         assertThat(b.get("b")).isEqualTo("provolone");
     }
 
+    @Test
+    public void removeTest() {
+        BSTMap<String, String> b = new BSTMap<>();
+        b.put("d", "parmesan");
+        b.put("a", "mozzarella");
+        b.put("c", "swiss");
+        b.put("b", "pepper jack");
+        b.put("e", "gouda");
+
+        assertThat(b.remove("c")).isEqualTo("swiss");
+        assertThat(b.containsKey("c")).isFalse();
+        assertThat(b.size()).isEqualTo(4);
+
+        assertThat(b.get("d")).isEqualTo("parmesan");
+        assertThat(b.get("a")).isEqualTo("mozzarella");
+        assertThat(b.get("b")).isEqualTo("pepper jack");
+        assertThat(b.get("e")).isEqualTo("gouda");
+    }
+
+    @Test
+    public void iteratorTest() {
+        BSTMap<String, Integer> b = new BSTMap<>();
+        b.put("d", 4);
+        b.put("a", 1);
+        b.put("c", 3);
+        b.put("b", 2);
+        b.put("e", 5);
+
+        ArrayList<String> keys = new ArrayList<>();
+        for (String k : b) {
+            keys.add(k);
+        }
+
+        ArrayList<String> expected = new ArrayList<>();
+        expected.add("a");
+        expected.add("b");
+        expected.add("c");
+        expected.add("d");
+        expected.add("e");
+
+        assertThat(keys).isEqualTo(expected);
+    }
 }
